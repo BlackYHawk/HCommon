@@ -1,0 +1,77 @@
+apply plugin: 'com.android.library'
+apply from: "https://raw.githubusercontent.com/BlackYHawk/BintrayUploadScript/master/bintray.gradle"
+
+android {
+    compileSdkVersion rootProject.ext.androidCompileSdkVersion
+    buildToolsVersion rootProject.ext.androidBuildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.releaseVersionCode
+        versionName rootProject.ext.releaseVersionName
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ['autovaluegson.defaultCollectionsToEmpty': 'true']
+            }
+        }
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "com.android.support:appcompat-v7:$rootProject.ext.androidSupportSdkVersion"
+    implementation "com.android.support:design:$rootProject.ext.androidSupportSdkVersion"
+    implementation "com.android.support:recyclerview-v7:$rootProject.ext.androidSupportSdkVersion"
+    implementation "com.android.support:cardview-v7:$rootProject.ext.androidSupportSdkVersion"
+    implementation "io.github.blackyhawk:mvp:$rootProject.ext.mvpVersion"
+    implementation "io.github.blackyhawk:mvp-rx:$rootProject.ext.mvpVersion"
+    implementation "com.google.dagger:dagger:$rootProject.ext.dagger2Version"
+    implementation "com.squareup.okhttp3:okhttp:$rootProject.ext.okHttpVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.ext.okHttpVersion"
+    implementation "com.facebook.stetho:stetho:$rootProject.ext.stethoVersion"
+    implementation "com.facebook.stetho:stetho-okhttp3:$rootProject.ext.stethoVersion"
+    implementation "com.jakewharton:butterknife:$rootProject.ext.butterknifeVersion"
+    implementation "com.squareup.sqlbrite:sqlbrite:$rootProject.ext.sqlBriteVersion"
+    implementation "com.squareup.sqldelight:runtime:$rootProject.ext.sqlDelightVersion"
+    implementation "com.facebook.fresco:fresco:$rootProject.ext.frescoVersion"
+    implementation "com.davemorrissey.labs:subsampling-scale-image-view:3.6.0"
+    implementation "commons-io:commons-io:2.5"
+    implementation "com.readystatesoftware.systembartint:systembartint:1.0.3"
+    implementation "com.github.castorflex.smoothprogressbar:library:1.1.0"
+    implementation "com.github.filippudak.progresspieview:library:1.0.4"
+    implementation "com.google.code.gson:gson:2.8.1"
+    implementation "com.squareup.retrofit2:retrofit:2.1.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.1.0"
+    implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0"
+    implementation "com.squareup:otto:1.3.8"
+    implementation "io.reactivex.rxjava2:rxjava:2.0.7"
+    implementation "io.reactivex.rxjava2:rxandroid:2.0.0"
+    implementation "com.github.akarnokd:rxjava2-interop:0.9.4"
+    implementation "com.jakewharton.rxbinding2:rxbinding:2.0.0"
+    implementation "com.tbruyelle.rxpermissions2:rxpermissions:0.9.3"
+    implementation "com.jakewharton.threetenabp:threetenabp:1.0.4"
+    implementation "com.jakewharton.timber:timber:4.3.1"
+    implementation "com.google.auto.value:auto-value:$rootProject.ext.autoValueVersion"
+
+    annotationProcessor "com.google.auto.value:auto-value:$rootProject.ext.autoValueVersion"
+    annotationProcessor "com.ryanharter.auto.value:auto-value-parcel:$rootProject.ext.autoValueParcelVersion"
+    annotationProcessor "com.ryanharter.auto.value:auto-value-gson:$rootProject.ext.autoValueGsonVersion"
+    annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.ext.dagger2Version"
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+}
